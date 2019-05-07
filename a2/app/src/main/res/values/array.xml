@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="restaurants">
+        <item>Taco Bell</item>
+        <item>Wendys</item>
+        <item>McDonalds</item>
+        <item>Arbys</item>
+        <item>Burger King</item>
+        <item>Taco Time</item>
+        <item>Subway</item>
+        <item>Dairy Queen</item>
+        <item>Pizza Hut</item>
+        <item>Jack in the Box</item>
+        <item>Burrito King</item>
+        <item>QQ Lis</item>
+        <item>On Rice</item>
+        <item>Pizza Time</item>
+        <item>Little Caesar's</item>
+        <item>Domino's</item>
+    </string-array>
+
+</resources>
