@@ -7,8 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 
-import tullyj2.cs412.wwu.tullyj2_a2.dummy.DummyContent;
+import tullyj2.cs412.wwu.tullyj2_a2.restaurants.RestaurantContent;
 
 import java.util.List;
 
@@ -62,7 +60,7 @@ public class ItemListActivity extends AppCompatActivity{
 
         if (savedInstanceState == null) {
             for (int i = 0; i <= 15; i++) {
-                DummyContent.addItem(DummyContent.createDummyItem(i, restaurants[i]));
+                RestaurantContent.addItem(RestaurantContent.createRestaurantItem(i, restaurants[i]));
             }
         }
         else {
@@ -73,19 +71,19 @@ public class ItemListActivity extends AppCompatActivity{
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
-        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, DummyContent.ITEMS, mTwoPane));
+        recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(this, RestaurantContent.ITEMS, mTwoPane));
     }
 
     public static class SimpleItemRecyclerViewAdapter
             extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder>{
 
         private final ItemListActivity mParentActivity;
-        private final List<DummyContent.DummyItem> mValues;
+        private final List<RestaurantContent.RestaurantItem> mValues;
         private final boolean mTwoPane;
         private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DummyContent.DummyItem item = (DummyContent.DummyItem) view.getTag();
+                RestaurantContent.RestaurantItem item = (RestaurantContent.RestaurantItem) view.getTag();
                 if (mTwoPane) {
                     if (item.details == null) {
                         Log.d("LISTCLICK", "detail null");
@@ -111,7 +109,7 @@ public class ItemListActivity extends AppCompatActivity{
         };
 
         SimpleItemRecyclerViewAdapter(ItemListActivity parent,
-                                      List<DummyContent.DummyItem> items,
+                                      List<RestaurantContent.RestaurantItem> items,
                                       boolean twoPane) {
             mValues = items;
             mParentActivity = parent;

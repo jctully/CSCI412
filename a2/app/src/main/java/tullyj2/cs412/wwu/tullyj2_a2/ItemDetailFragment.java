@@ -1,7 +1,6 @@
 package tullyj2.cs412.wwu.tullyj2_a2;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,9 +13,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import tullyj2.cs412.wwu.tullyj2_a2.dummy.DummyContent;
+import tullyj2.cs412.wwu.tullyj2_a2.restaurants.RestaurantContent;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -33,9 +31,9 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
 
 
     /**
-     * The dummy content this fragment is presenting.
+     * The Restaurant content this fragment is presenting.
      */
-    private DummyContent.DummyItem mItem;
+    private RestaurantContent.RestaurantItem mItem;
 
     private EditText detail_input;
 
@@ -60,7 +58,7 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
             // Load the dummy content specified by the fragment
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
+            mItem = RestaurantContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
             if (mItem.details != null) {
                 Log.d("ONCREATE", mItem.details);
             }
@@ -84,17 +82,17 @@ public class ItemDetailFragment extends Fragment implements View.OnClickListener
 
         // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(R.id.detail_header)).setText(DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).content);
-            if (DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).details != null) {
-                Log.d("CREATEVIEWIF", DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).details);
-                ((EditText) rootView.findViewById(R.id.detail_input)).setText(DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).details);
+            ((TextView) rootView.findViewById(R.id.detail_header)).setText(RestaurantContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).content);
+            if (RestaurantContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).details != null) {
+                Log.d("CREATEVIEWIF", RestaurantContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).details);
+                ((EditText) rootView.findViewById(R.id.detail_input)).setText(RestaurantContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).details);
             }
             else {
                 Log.d("CREATEVIEWELSE", "Drawing without details");
 
             }
 
-            switch (DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).score) {
+            switch (RestaurantContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID)).score) {
                 case 1:
                     ((RadioButton) rootView.findViewById(R.id.radio_left)).setChecked(true);
                     break;
