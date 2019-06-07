@@ -78,7 +78,7 @@ public class AddRestaurant extends Fragment {
         addDrinkButton = (Button) view.findViewById(R.id.save_button);
 
         titleTextView.setText("Add Restaurant");
-        nameEditText.setHint("Enter Drink Name");
+        nameEditText.setHint("Enter Restaurant Name");
 
         addDrinkButton.setOnClickListener(new View.OnClickListener() {
             @Override
