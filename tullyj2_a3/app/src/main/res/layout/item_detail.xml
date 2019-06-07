@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_detail"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/detail_header"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textIsSelectable="true"
+        tools:context="tullyj2.cs412.wwu.tullyj2_a2.ItemDetailFragment" />
+
+    <TextView
+        android:id="@+id/detail_name"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+
+        />
+
+    <EditText
+        android:id="@+id/detail_input"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:inputType="text"
+        android:hint="Enter your review"/>
+
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton android:id="@+id/radio_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_left"/>
+        <RadioButton android:id="@+id/radio_mid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_mid"/>
+        <RadioButton android:id="@+id/radio_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_right"/>
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/save" />
+
+
+</LinearLayout>
+
+
