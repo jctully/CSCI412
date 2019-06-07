@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static DatabaseHelper sInstance;
     // Database Info
     private static final String DATABASE_NAME = "drinksDatabase";
+
     private static final int DATABASE_VERSION = 2;
 
     // Table Name

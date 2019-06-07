@@ -1,5 +1,6 @@
 package tullyj2.cs412.wwu.tullyj2_a3;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,13 +14,16 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 /**
  * A fragment representing a single Item detail screen.
  * This fragment is either contained in a {@link ItemListActivity}
  * in two-pane mode (on tablets) or a {@link ItemDetailActivity}
  * on handsets.
  */
-public class DrinkDetailFragment extends Fragment implements View.OnClickListener{
+public class RestaurantDetailFragment extends Fragment implements View.OnClickListener{
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -30,28 +34,17 @@ public class DrinkDetailFragment extends Fragment implements View.OnClickListene
     private EditText descText;
     private int score = -1;
 
+    DrinkDetailFragment.RefreshClicked mCallback;
 
-    private long _id;
-
-    private DBManager dbManager;
-
-    RefreshClicked mCallback;
-
-    public interface RefreshClicked {
-        public void refreshList(int position);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dbManager = new DBManager(getContext());
-        dbManager.open();
-
     }
 
-    public static DrinkDetailFragment newInstance(String string) {
-        DrinkDetailFragment f = new DrinkDetailFragment();
+    public static RestaurantDetailFragment newInstance(String string) {
+        RestaurantDetailFragment f = new RestaurantDetailFragment();
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
@@ -65,7 +58,7 @@ public class DrinkDetailFragment extends Fragment implements View.OnClickListene
     public View onCreateView( LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
         try {
-            mCallback = (RefreshClicked) getActivity();
+            mCallback = (DrinkDetailFragment.RefreshClicked) getActivity();
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString()
                     + " must implement TextClicked");
@@ -81,12 +74,9 @@ public class DrinkDetailFragment extends Fragment implements View.OnClickListene
         deleteBtn = (Button) rootView.findViewById(R.id.btn_delete);
 
         if (bundle != null) {
-            String id = bundle.getString("id");
             String name = bundle.getString("name");
             String desc = bundle.getString("desc");
             score = bundle.getInt("score");
-
-            _id = Long.parseLong(id);
 
             titleText.setText(name);
             descText.setText(desc);
@@ -133,31 +123,73 @@ public class DrinkDetailFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("restaurants", 0).edit();
+        SharedPreferences prefs = getActivity().getSharedPreferences("restaurants", 0);
+        String jsonString1 = prefs.getString("restaurantsJSON", null);
+
+        String name = titleText.getText().toString();
+        String desc = descText.getText().toString();
         switch (v.getId()) {
             case R.id.btn_update:
-                String name = titleText.getText().toString();
-                String desc = descText.getText().toString();
 
-                dbManager.update(_id, new Drink(name, desc, score));
+                try {
+                    JSONObject raw = new JSONObject(jsonString1);
+                    JSONArray m_jArry = raw.getJSONArray("restaurants");
+                    int i;
+                    for (i = 0; i < m_jArry.length(); i++) {
+                        JSONObject jo_inside = m_jArry.getJSONObject(i);
+                        //Log.d("Details-->", jo_inside.getString("formule"));
+                        if ( name.equals(jo_inside.getString("name"))) {
+                            break;
+                        }
+                    }
+
+                    m_jArry.getJSONObject(i).put("desc", desc).put("score", score);
+                    JSONObject mainObject = new JSONObject();
+                    mainObject.put("restaurants", m_jArry);
+                    System.out.println(mainObject);
+
+                    editor.putString("restaurantsJSON", mainObject.toString());
+                    editor.apply();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+
                 mCallback.refreshList(1);
                 break;
 
             case R.id.btn_delete:
-                dbManager.deleteDrink(_id);
+                //TODO:delete
+
+                try {
+                    JSONObject raw = new JSONObject(jsonString1);
+                    JSONArray m_jArry = raw.getJSONArray("restaurants");
+                    int i;
+                    for (i = 0; i < m_jArry.length(); i++) {
+                        JSONObject jo_inside = m_jArry.getJSONObject(i);
+                        if ( name.equals(jo_inside.getString("name"))) {
+                            break;
+                        }
+                    }
+
+                    m_jArry.remove(i);
+                    JSONObject mainObject = new JSONObject();
+                    mainObject.put("restaurants", m_jArry);
+                    System.out.println(mainObject);
+
+                    editor.putString("restaurantsJSON", mainObject.toString());
+                    editor.apply();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 mCallback.refreshList(1);
-                //BaseAdapter.notifyDataSetChanged()
                 break;
         }
-    }
-
-    public void returnHome() {
-        DrinkItemFragment list = new DrinkItemFragment();
-        FragmentManager fragmentManager = getChildFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.list_view, list);
-        fragmentTransaction.commit();
-
-        //getActivity().getFragmentManager().beginTransaction().remove(this).commit();
     }
 
 

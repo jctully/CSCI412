@@ -102,11 +102,11 @@ public class MainActivity extends AppCompatActivity implements DrinkDetailFragme
             if(position == 0) {
                 Log.d("IN MAIN GET ITEM", "POSITION = " + position);
 
-                return new DrinkItemFragment();
+                return DrinkItemFragment.newInstance(1);
             }
             else {
                 Log.d("IN MAIN GET ITEM", "POSITION = " + position);
-                return DrinkItemFragment.newInstance(1);
+                return RestaurantItemFragment.newInstance(1);
             }
         }
 
@@ -121,6 +121,9 @@ public class MainActivity extends AppCompatActivity implements DrinkDetailFragme
         //FragmentLeft is the class for the first fragment in the view
         //recreate only FragmentLeft
             if (object instanceof DrinkItemFragment) {
+                return POSITION_NONE;
+            }
+            else if (object instanceof RestaurantItemFragment) {
                 return POSITION_NONE;
             }
             return 1;

@@ -1,0 +1,39 @@
+{"restaurants": [
+  {
+    "name": "McDonalds",
+    "desc": "",
+    "score": "0"
+  },
+  {
+    "name": "Burger King",
+    "desc": "",
+    "score": "0"
+  },
+  {
+    "name": "Wendy's",
+    "desc": "",
+    "score": "0"
+  },
+  {
+    "name": "Arby's",
+    "desc": "",
+    "score": "0"
+  },
+  {
+    "name": "Jack in the Box",
+    "desc": "",
+    "score": "0"
+  },
+  {
+    "name": "Taco Bell",
+    "desc": "",
+    "score": "0"
+  },
+  {
+    "name": "Little Caesar's",
+    "desc": "",
+    "score": "0"
+  }
+]
+
+}
